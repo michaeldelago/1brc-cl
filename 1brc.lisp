@@ -1,15 +1,8 @@
-#!/bin/sh
-#|-*- mode:lisp -*-|#
-#|
-exec ros -Q -m -- $0 "$@"
-|#
-(progn ;;init forms
-  #+quicklisp(ql:quickload '(:alexandria :parse-number :serapeum) :silent t))
 
-(defpackage :ros.script.1brc.3919158268
+(defpackage :1brc
   (:use :cl)
   (:import-from :parse-number #:parse-number))
-(in-package :ros.script.1brc.3919158268)
+(in-package 1brc)
 
 (defparameter *cities* (make-hash-table :test #'equal :size 1000))
 
