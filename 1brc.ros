@@ -38,7 +38,7 @@ exec ros -Q -- $0 "$@"
                  :avg-temp temp)))
 
 (defun hash-table-sorted ()
-  "Returns the top N entries from hash table TABLE. Values are expected to be numeric."
+  "Returns the *cities* hash table sorted by key"
   (sort (alexandria:hash-table-alist *cities*) #'string-lessp :key #'car))
 
 (defun process-row (line)
