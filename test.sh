@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-PROG="${1:-"./1brc.ros"}"
+PROG="${1:-"qlot exec ros ./1brc.ros"}"
 
 COLOR_RED='\033[0;31m'
 COLOR_GREEN='\033[0;32m'
@@ -11,7 +11,7 @@ function passfail () {
   expected="$1"
   actual="$2"
   if [[ "$(< "$expected")" != "$actual" ]]; then
-    printf "${COLOR_RED}FAIL${COLOR_RESET}"
+    echo "${COLOR_RED}FAIL${COLOR_RESET}"
   else
     printf "${COLOR_GREEN}PASS${COLOR_RESET}"
   fi
@@ -19,12 +19,12 @@ function passfail () {
 
 function test () {
   start="$(date +%s)"
-  result="$("$PROG" "$1")"
+  result="$($PROG "$1")"
   end="$(date +%s)"
   status="$(passfail "$2" "$result")"
   echo $status $1 completed in $((end - start)) seconds
 }
 
-ls -1 test/*.txt | while read line; do
+for line in test/*.txt; do
   test "$line" "$(echo "$line" | cut -f1 -d\.).out"
 done
